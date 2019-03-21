@@ -6,7 +6,6 @@ import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
 import sbq.scheduler.tasks.QuartzTestTask;
-import sbq.scheduler.tasks.TestTask1;
 
 import static org.quartz.JobBuilder.*;
 import static org.quartz.TriggerBuilder.*;
@@ -22,13 +21,15 @@ public class QuartzTestMain {
 
             JobDetail job = newJob(QuartzTestTask.class)
                     .withIdentity("testTask1", "group1")
+                    .usingJobData("jobSays", "Hello, World!")
+                    .usingJobData("myFloatValue", 3.14f)
                     .build();
 
             Trigger trigger = newTrigger()
                     .withIdentity("testTrigger", "group1")
                     .startNow()
                     .withSchedule(simpleSchedule()
-                            .withIntervalInSeconds(40)
+                            .withIntervalInSeconds(5)
                             .repeatForever())
                     .build();
 
@@ -37,10 +38,8 @@ public class QuartzTestMain {
             Thread.sleep(60000);
 
             scheduler.shutdown();
-        } catch (SchedulerException se) {
+        } catch (SchedulerException | InterruptedException se) {
             se.printStackTrace();
-        } catch (InterruptedException ie) {
-            ie.printStackTrace();
         }
     }
 }
