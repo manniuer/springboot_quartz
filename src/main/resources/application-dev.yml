@@ -1,0 +1,6 @@
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://192.168.101.112:3306/sbq
+    username: root
+    password: peolinux
