@@ -1,9 +1,11 @@
 spring:
   profiles:
-    active: dev
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    active: office
   quartz:
+    job-store-type: jdbc
+    jdbc:
+      initialize-schema: always
+#      schema: classpath:schema/tables_mysql.sql
     properties:
       org:
         quartz:
@@ -22,9 +24,3 @@ spring:
             threadCount: 10
             threadPriority: 5
             threadsInheritContextClassLoaderOfInitializingThread: true
-    job-store-type: jdbc
-    jdbc:
-      initialize-schema: never
-#      schema: classpath:schema/tables_mysql.sql
-#    jdbc:
-#      initialize-schema: always
