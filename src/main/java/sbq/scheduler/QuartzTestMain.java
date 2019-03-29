@@ -27,6 +27,7 @@ public class QuartzTestMain {
 
             Trigger trigger = newTrigger()
                     .withIdentity("testTrigger", "group1")
+                    .usingJobData("myStateData", "fucking data")
                     .startNow()
                     .withSchedule(simpleSchedule()
                             .withIntervalInSeconds(5)
